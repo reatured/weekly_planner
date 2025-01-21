@@ -7,9 +7,10 @@ function App() {
   
   // Convert start_date to a Date object for calculations
   const dateObject = new Date(start_date);
+  console.log(dateObject)
   const month = dateObject.getMonth() + 1;
   const topMonth = `${month}月${dateObject.getFullYear()}`
-  const week = `${Math.floor((dateObject.getDate() - 1) / 7) + 1}${['th', 'st', 'nd', 'rd'][Math.min(Math.floor((dateObject.getDate() - 1) % 10), 3)]} + week`
+  const week = `${Math.floor((dateObject.getDate() - 1) / 7) + 1}${['th', 'st', 'nd', 'rd'][Math.min(Math.floor((dateObject.getDate() - 1) % 10), 3)]} week`
 
   const weekdayArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
   const weekday = weekdayArray[dateObject.getDay()]
@@ -52,7 +53,11 @@ function App() {
               
             </div>
             <div className="date-block-right" style={{width: 'calc(100% - 106px)'}}>
-              
+            <input 
+              type="text" 
+              placeholder="Add a note"
+              style={{ width: '100%', height: '40px', margin: '0px', padding: '0px', borderRadius: '5px', border: '1px solid #ccc' }} 
+            />
             </div>
           </div>
         ))}
