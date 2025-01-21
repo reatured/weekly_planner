@@ -86,7 +86,7 @@ function App() {
       </div>
       
       {/* Bottom Block */}
-      <div className="bottom-block" style={{backgroundColor: '#000000FF'}}>
+      <div className="bottom-block" style={{backgroundColor: '#BA3535FF'}}>
         {/* Content for the bottom block */}
       </div>
     </div>
