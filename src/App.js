@@ -10,7 +10,7 @@ function App() {
 
 
   return (
-    <div className="App" style={{ width: '392px' }}>
+    <div className="App" style={{ width: '392px', backgroundColor: '#F5F5F5' }}>
       {/* Top Block */}
       <div className="top-block" style={{ display: 'flex', justifyContent: 'space-around', backgroundColor: '#F5F5F5'  }}>
         <div className="Month" style={{ width: '100px'}}>
