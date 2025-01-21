@@ -3,18 +3,34 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const weekdayArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
   const [start_date, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-  
   // Convert start_date to a Date object for calculations
   const dateObject = new Date(start_date);
-  console.log(dateObject)
+  
   const month = dateObject.getMonth() + 1;
   const topMonth = `${month}月${dateObject.getFullYear()}`
   const week = `${Math.floor((dateObject.getDate() - 1) / 7) + 1}${['th', 'st', 'nd', 'rd'][Math.min(Math.floor((dateObject.getDate() - 1) % 10), 3)]} week`
 
-  const weekdayArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-  const weekday = weekdayArray[dateObject.getDay()]
-  console.log(weekday)
+  const dateObjectArray = []
+  for (let i = 0; i < 7; i++) {
+    dateObjectArray.push(new Date(dateObject.setDate(dateObject.getDate() + 1)))
+  }
+
+  const dateArray = []
+  for (let i = 0; i < 7; i++) {
+    dateArray.push(dateObjectArray[i].getDate())
+  }
+
+  const weekdayNameArray = []
+  for (let i = 0; i < 7; i++) {
+    weekdayNameArray.push(weekdayArray[dateObjectArray[i].getDay()])
+  }
+  
+  console.log(dateArray)
+  console.log(weekdayNameArray)
+
   const getWeekday = (index) => {
     const day = weekdayArray[(dateObject.getDay() + index) % weekdayArray.length]
     return day;
@@ -48,15 +64,14 @@ function App() {
         {Array.from({ length: 7 }).map((_, index) => (
           <div className="date-block" key={index}>
             <div className="date-block-left" >
-             <p className="date-block-date">{index +1 + dateObject.getDate()}</p>
-             <p className="date-block-day" style={{margin: 0}}>{getWeekday(index)}</p>
+             <p className="date-block-date">{dateArray[index]}</p>
+             <p className="date-block-day" style={{margin: 0}}>{weekdayNameArray[index]}</p>
               
             </div>
             <div className="date-block-right" style={{width: 'calc(100% - 106px)'}}>
-            <input 
-              type="text" 
+            <textarea 
               placeholder="Add a note"
-              style={{ width: '100%', height: '40px', margin: '0px', padding: '0px', borderRadius: '5px', border: '1px solid #ccc' }} 
+              style={{ width: '100%', height: 'auto', margin: '0px', padding: '0px', border: 'none', background: 'transparent', resize: 'none' }} 
             />
             </div>
           </div>
