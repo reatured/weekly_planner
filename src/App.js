@@ -10,18 +10,19 @@ function App() {
 
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: '392px' }}>
       {/* Top Block */}
-      <div className="top-block" style={{ display: 'flex', justifyContent: 'space-around' }}>
-        <div className="Month">
+      <div className="top-block" style={{ display: 'flex', justifyContent: 'space-around', backgroundColor: '#F5F5F5'  }}>
+        <div className="Month" style={{ width: '100px'}}>
           <p>{month}</p>
         </div>
 
-        <div className="Date">
+        <div className="Date" style={{ width: '172px'}}>
           <p>{date}</p>
         </div>
-        <div className="Weeks">
-          <p>{week}</p>
+        
+        <div className="Weeks" style={{ width: '100px'}}>
+          <p style={{  textAlign: 'right' }}>{week}</p>
         </div>
       </div>
       
