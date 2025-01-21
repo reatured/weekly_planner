@@ -11,7 +11,14 @@ function App() {
   
   const month = dateObject.getMonth() + 1;
   const topMonth = `${month}月${dateObject.getFullYear()}`
-  const week = `${Math.floor((dateObject.getDate() - 1) / 7) + 1}${['th', 'st', 'nd', 'rd'][Math.min(Math.floor((dateObject.getDate() - 1) % 10), 3)]} week`
+  // const week = `${Math.floor((dateObject.getDate() - 1) / 7) + 1}${['th', 'st', 'nd', 'rd'][Math.min(Math.floor((dateObject.getDate() - 1) % 10), 3)]} week`
+
+  const firstDayOfYear = new Date(dateObject.getFullYear(), 0, 1);
+  const firstSundayOfYear = new Date(firstDayOfYear.setDate(firstDayOfYear.getDate() + ((7 - firstDayOfYear.getDay()) % 7 || 0)));
+  
+  // Adjust week calculation to ensure the first week is counted as week 1
+  const week = Math.floor(((dateObject - firstSundayOfYear) / 86400000) / 7) + 1 + (dateObject.getDay() === 0 ? 0 : 1);
+  console.log(week)
 
   const dateObjectArray = []
   for (let i = 0; i < 7; i++) {
@@ -37,7 +44,7 @@ function App() {
   }
   
   return (
-    <div className="App" style={{ width: '392px', backgroundColor: '#F5F5F5' }}>
+    <div className="App" style={{ width: '392px', backgroundColor: '#F5F5F5', minHeight: '100vh' }}>
       {/* Top Block */}
       <div className="top-block" style={{ display: 'flex', justifyContent: 'space-around', backgroundColor: '#F5F5F5'  }}>
         <div className="Month" style={{ width: '100px'}}>
@@ -71,7 +78,7 @@ function App() {
             <div className="date-block-right" style={{width: 'calc(100% - 106px)'}}>
             <textarea 
               placeholder="Add a note"
-              style={{ width: '100%', height: 'auto', margin: '0px', padding: '0px', border: 'none', background: 'transparent', resize: 'none' }} 
+              style={{ width: '100%', height: 'auto', margin: '0px', padding: '0px', border: 'none', background: 'transparent', resize: 'none', fontSize: '16px' }} 
             />
             </div>
           </div>
