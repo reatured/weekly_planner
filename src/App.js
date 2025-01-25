@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react"
 import logo from './logo.svg';
 import './App.css';
@@ -44,6 +44,23 @@ function App() {
     return day;
   }
   
+  // Get the current date in YYYY-MM-DD format
+  const currentDate = new Date().toISOString().split('T')[0];
+
+  // Load saved data from local storage when the page loads
+  useEffect(() => {
+    const savedData = localStorage.getItem('textareaData-' + currentDate);
+    if (savedData) {
+      document.getElementById('myTextarea-' + currentDate).value = savedData;
+    }
+  }, [currentDate]);
+
+  // Save data to local storage when the textarea changes
+  const handleTextareaChange = (e) => {
+    const textareaValue = e.target.value;
+    localStorage.setItem('textareaData-' + currentDate, textareaValue);
+  };
+
   return (
     <div className="App" style={{ width: '392px', backgroundColor: '#F6BF0BFF', minHeight: '100vh' }}>
       {/* Top Block */}
@@ -78,8 +95,10 @@ function App() {
             </div>
             <div className="date-block-right" style={{width: 'calc(100% - 106px)'}}>
             <textarea 
+              id={`myTextarea-${currentDate}`}
               placeholder="Add a note"
               style={{ width: '100%', height: 'auto', margin: '0px', padding: '0px', border: 'none', background: 'transparent', resize: 'none', fontSize: '16px' }} 
+              onChange={handleTextareaChange}
             />
             </div>
           </div>
