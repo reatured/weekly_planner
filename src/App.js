@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { View, Button, Alert } from 'react-native';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 function App() {
   const weekdayArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -43,6 +45,34 @@ function App() {
     return day;
   }
   
+  useEffect(() => {
+    // Request calendar permissions
+    const requestCalendarPermission = async () => {
+      const permission = await RNCalendarEvents.requestPermissions();
+      if (permission === 'authorized') {
+        createCalendar();
+      } else {
+        Alert.alert('Permission denied', 'You need to enable calendar access.');
+      }
+    };
+
+    requestCalendarPermission();
+  }, []);
+
+  const createCalendar = async () => {
+    try {
+      const calendarId = await RNCalendarEvents.saveCalendar('Week In Hand', {
+        color: '#F6BF0BFF',
+        entityType: 'event',
+        sourceId: null, // Use default source
+      });
+      Alert.alert('Calendar created', `Calendar ID: ${calendarId}`);
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Failed to create calendar.');
+    }
+  };
+
   return (
     <div className="App" style={{ width: '392px', backgroundColor: '#F6BF0BFF', minHeight: '100vh' }}>
       {/* Top Block */}
@@ -87,7 +117,9 @@ function App() {
       
       {/* Bottom Block */}
       <div className="bottom-block" style={{backgroundColor: '#BA3535FF'}}>
-        {/* Content for the bottom block */}
+        <View>
+          <Button title="Create Calendar" onPress={createCalendar} />
+        </View>
       </div>
     </div>
   );
