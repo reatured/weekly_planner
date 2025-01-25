@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  //top block scripts
   const weekdayArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
   const [start_date, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
@@ -19,8 +20,9 @@ function App() {
   
   // Adjust week calculation to ensure the first week is counted as week 1
   const week = Math.floor(((dateObject - firstSundayOfYear) / 86400000) / 7) + 1 + (dateObject.getDay() === 0 ? 0 : 1);
-  console.log(week)
+  const output_Week = `Week ${week}`
 
+  //middle block scripts
   const dateObjectArray = []
   for (let i = 0; i < 7; i++) {
     dateObjectArray.push(new Date(dateObject.setDate(dateObject.getDate() + 1)))
@@ -35,9 +37,6 @@ function App() {
   for (let i = 0; i < 7; i++) {
     weekdayNameArray.push(weekdayArray[dateObjectArray[i].getDay()])
   }
-  
-  console.log(dateArray)
-  console.log(weekdayNameArray)
 
   const getWeekday = (index) => {
     const day = weekdayArray[(dateObject.getDay() + index) % weekdayArray.length]
@@ -62,7 +61,7 @@ function App() {
         </div>
         
         <div className="Weeks" style={{ width: '100px' }}>
-          <p style={{  textAlign: 'right' }}>{week}</p>
+          <p style={{  textAlign: 'right' }}>{output_Week}</p>
         </div>
       </div>
       
