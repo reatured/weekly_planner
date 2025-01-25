@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet, Dimensions} from 'react-native';
-
+import { Analytics } from "@vercel/analytics/react"
 const FlexWrapLayout = () => {
   const [flexWrap, setFlexWrap] = useState('wrap');
 
